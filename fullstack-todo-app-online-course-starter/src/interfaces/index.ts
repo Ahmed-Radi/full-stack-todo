@@ -14,3 +14,14 @@ export interface IRegisterInput {
     pattern?: RegExp
   },
 }
+
+export interface ErrorResponse {
+  error: {
+    details?: {
+      errors: {
+        message: string
+      }[];
+    }
+    message?: string;
+  }
+}
