@@ -7,3 +7,10 @@ export const registerSchema = yup
     password: yup.string().required().min(6, "Password should be at lest 6 character"),
   })
   .required()
+
+export const loginSchema = yup
+  .object({
+    identifier: yup.string().required("Email is required").matches(/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,"Not valid email"),
+    password: yup.string().required("Password is required")
+  })
+  .required()

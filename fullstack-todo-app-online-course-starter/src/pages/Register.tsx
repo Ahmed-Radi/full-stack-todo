@@ -3,7 +3,7 @@ import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import InputErrorMessage from "../components/InputErrorMessage";
 import { REGISTER_FORM } from "../data";
-import { ErrorResponse, IFormInput, IRegisterInput } from "../interfaces";
+import { ErrorResponse, IRegisterFormInput, IRegisterInput } from "../interfaces";
 import { registerSchema } from "../components/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axiosInstance from "../config/axios.config";
@@ -14,14 +14,14 @@ import { AxiosError } from "axios";
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
+  const { register, handleSubmit, formState: { errors } } = useForm<IRegisterFormInput>({
     resolver: yupResolver(registerSchema)
   })
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<IRegisterFormInput> = async (data) => {
     setIsLoading(true)
     try {
       await axiosInstance.post("/auth/local/register", data);
-      toast.success('You will navigate to the login page after 4 second to login',
+      toast.success('You will navigate to the login page after 4 second',
         {
           position: "bottom-center",
           duration: 4000,
@@ -33,9 +33,7 @@ const RegisterPage = () => {
         }
       );
     } catch (error) {
-      console.log('error', error)
       const errorObj = error as AxiosError<ErrorResponse>;
-      console.log('errorObj', errorObj.response?.data?.error?.message)
       toast.error(`${errorObj.response?.data?.error?.message}`,
         {
           position: "bottom-center",
