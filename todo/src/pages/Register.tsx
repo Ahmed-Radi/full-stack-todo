@@ -10,9 +10,11 @@ import axiosInstance from "../config/axios.config";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { register, handleSubmit, formState: { errors } } = useForm<IRegisterFormInput>({
     resolver: yupResolver(registerSchema)
@@ -21,30 +23,28 @@ const RegisterPage = () => {
     setIsLoading(true)
     try {
       await axiosInstance.post("/auth/local/register", data);
-      toast.success('You will navigate to the login page after 4 second',
-        {
-          position: "bottom-center",
-          duration: 4000,
-          style: {
-            background: "black",
-            color: "white",
-            width: "fit-content"
-          }
+      toast.success('You will navigate to the login page after 2 second', {
+        position: "bottom-center",
+        duration: 1500,
+        style: {
+          background: "black",
+          color: "white",
+          width: "fit-content"
         }
-      );
+      });
+
+      setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
       const errorObj = error as AxiosError<ErrorResponse>;
-      toast.error(`${errorObj.response?.data?.error?.message}`,
-        {
-          position: "bottom-center",
-          duration: 4000,
-          style: {
-            background: "black",
-            color: "white",
-            width: "fit-content"
-          }
+      toast.error(`${errorObj.response?.data?.error?.message}`, {
+        position: "bottom-center",
+        duration: 1500,
+        style: {
+          background: "black",
+          color: "white",
+          width: "fit-content"
         }
-      );
+      });
     } finally {
       setIsLoading(false)
     }

@@ -22,32 +22,31 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<ILoginFormInput> = async (data) => {
     try {
       setIsLoading(true)
-      await axiosInstance.post("auth/local", data)
-      toast.success('Welcome back! You will navigate to the home page after 4 second',
-      {
+      const { data: resData } = await axiosInstance.post("auth/local", data)
+      toast.success('Welcome back! You will navigate to the home page after 2 second', {
         position: "bottom-center",
-        duration: 4000,
+        duration: 1500,
         style: {
           background: "black",
           color: "white",
           width: "fit-content"
         }
-      }
-    );
+      });
+
+      localStorage.setItem('user', JSON.stringify(resData))
+      setTimeout(() => location.replace('/'), 2000);
     } catch (error) {
       setIsLoading(true)
       const errorObj = error as AxiosError<ErrorResponse>
-      toast.error(`${errorObj.response?.data?.error?.message}`,
-      {
+      toast.error(`${errorObj.response?.data?.error?.message}`,{
         position: "bottom-center",
-        duration: 4000,
+        duration: 1500,
         style: {
           background: "black",
           color: "white",
           width: "fit-content"
         }
-      }
-    );
+      });
     } finally {
       setIsLoading(false)
     }
