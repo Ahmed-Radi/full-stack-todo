@@ -49,3 +49,11 @@ export interface ITodo {
   updatedAt: string,
   publishedAt: string
 }
+
+export interface ModalProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  title?: string;
+  description?: string;
+  children?: React.ReactNode;
+}
