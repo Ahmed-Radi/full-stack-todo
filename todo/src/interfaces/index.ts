@@ -5,14 +5,14 @@ export interface IRegisterFormInput {
   password: string
 }
 export interface IRegisterInput {
-  name: keyof IRegisterFormInput,
-  placeholder: string,
-  type: string,
+  name: keyof IRegisterFormInput;
+  placeholder: string;
+  type: string;
   validation: {
-    required?: boolean,
-    minLength?: number,
+    required?: boolean;
+    minLength?: number;
     pattern?: RegExp
-  },
+  };
 }
 
 // login
@@ -21,14 +21,14 @@ export interface ILoginFormInput {
   password: string
 }
 export interface ILoginInput {
-  name: keyof ILoginFormInput,
-  placeholder: string,
-  type: string,
+  name: keyof ILoginFormInput;
+  placeholder: string;
+  type: string;
   validation: {
-    required?: boolean,
-    minLength?: number,
+    required?: boolean;
+    minLength?: number;
     pattern?: RegExp
-  },
+  };
 }
 
 export interface ErrorResponse {
@@ -43,11 +43,12 @@ export interface ErrorResponse {
 }
 
 export interface ITodo {
-  id: number,
-  title: string,
-  createdAt: string,
-  updatedAt: string,
-  publishedAt: string
+  id: number;
+  title: string;
+  description: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
 }
 
 export interface ModalProps {
